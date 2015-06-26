@@ -235,6 +235,53 @@ void Adafruit_BNO055::getRevInfo(adafruit_bno055_rev_info_t* info)
 
 /**************************************************************************/
 /*!
+    @brief  Reads the calibration state (CALIB_STAT)
+*/
+/**************************************************************************/
+bool Adafruit_BNO055::getCalibState(adafruit_bno055_calib_stat_t mask)
+{
+/* See section 3.10 */
+uint8_t a;
+a = read8(BNO055_CALIB_STAT_ADDR);
+return ((a & mask) == mask);
+}
+
+/**************************************************************************/
+/*!
+    @brief  Reads the calibration data 
+*/
+/**************************************************************************/
+void Adafruit_BNO055::getCalibData(byte * pbuffer)
+{
+	adafruit_bno055_opmode_t backupmode = _mode;
+	setMode(OPERATION_MODE_CONFIG);
+	delay(25);
+    readLen(ACCEL_OFFSET_X_LSB_ADDR, pbuffer, 22); //read the whole range of offsets
+	setMode(backupmode); //return to previous opmode
+	delay(25);
+}
+
+/**************************************************************************/
+/*!
+    @brief  Writes previously acquired calibration data 
+*/
+/**************************************************************************/
+void Adafruit_BNO055::setCalibData(byte * pbuffer)
+{
+	adafruit_bno055_opmode_t backupmode = _mode;
+	setMode(OPERATION_MODE_CONFIG);
+	delay(25);
+	for(uint8_t i = 0; i < 22; i++)
+	{
+		Serial.println(pbuffer[i]);
+		write8((adafruit_bno055_reg_t)((uint8_t)ACCEL_OFFSET_X_LSB_ADDR+i), pbuffer[i]); //write the whole range of offsets
+	}
+	setMode(backupmode); //return to previous opmode
+	delay(25);
+}
+
+/**************************************************************************/
+/*!
     @brief  Gets teh temperature in degrees celsius
 */
 /**************************************************************************/
