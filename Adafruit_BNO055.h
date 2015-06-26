@@ -226,6 +226,14 @@ class Adafruit_BNO055 : public Adafruit_Sensor
       uint16_t sw_rev;
       uint8_t  bl_rev;
     } adafruit_bno055_rev_info_t;
+    typedef enum
+	  { 
+	    /* bit masks to read the CALIB_STAT register */
+	    CALIB_STAT_SYS 										                      = 0xC0, 
+	    CALIB_STAT_GYR 										                      = 0x30, 
+	    CALIB_STAT_ACC 										                      = 0x0C,
+	    CALIB_STAT_MAG 										                      = 0x03
+	  } adafruit_bno055_calib_stat_t; 
 
     typedef enum
     {
@@ -241,6 +249,9 @@ class Adafruit_BNO055 : public Adafruit_Sensor
 
     bool  begin               ( adafruit_bno055_opmode_t mode = OPERATION_MODE_NDOF );
     void  setMode             ( adafruit_bno055_opmode_t mode );
+	  bool  getCalibState 	    ( adafruit_bno055_calib_stat_t );
+	  void  getCalibData		    ( byte *pbuffer);
+	  void  setCalibData		    ( byte *pbuffer);    
     void  getRevInfo          ( adafruit_bno055_rev_info_t* );
     void  displayRevInfo      ( void );
     void  setExtCrystalUse    ( boolean usextal );
