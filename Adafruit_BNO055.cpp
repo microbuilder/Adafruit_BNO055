@@ -255,10 +255,10 @@ void Adafruit_BNO055::getCalibData(byte * pbuffer)
 {
   adafruit_bno055_opmode_t backupmode = _mode;
   setMode(OPERATION_MODE_CONFIG);
-  delay(25);
+  delay(20);
   readLen(ACCEL_OFFSET_X_LSB_ADDR, pbuffer, 22); //read the whole range of offsets
   setMode(backupmode); //return to previous opmode
-  delay(25);
+  delay(20);
 }
 
 /**************************************************************************/
@@ -270,11 +270,11 @@ void Adafruit_BNO055::setCalibData(byte * pbuffer)
 {
   adafruit_bno055_opmode_t backupmode = _mode;
   setMode(OPERATION_MODE_CONFIG);
-  delay(25);
+  delay(20);
   for(uint8_t i = 0; i < 22; i++)
     write8((adafruit_bno055_reg_t)((uint8_t)ACCEL_OFFSET_X_LSB_ADDR+i), pbuffer[i]); //write the whole range of offsets
   setMode(backupmode); //return to previous opmode
-  delay(25);
+  delay(20);
 }
 
 /**************************************************************************/
