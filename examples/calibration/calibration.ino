@@ -33,7 +33,7 @@ void setup()
   
   /* You will need the next two commented lines in your own sketch, _immediatly_ after bno.begin() to use a
     predefined calibration
-  const byte c_data[22] = {0, 0, 0, 0, 0, 0, 172, 250, 112, 255, 52, 253, 0, 0, 253, 255, 255, 255, 232, 3, 240, 2}; //replace this line with the serial output of this sketch
+  byte c_data[22] = {0, 0, 0, 0, 0, 0, 172, 250, 112, 255, 52, 253, 0, 0, 253, 255, 255, 255, 232, 3, 240, 2}; //replace this line with the serial output of this sketch
   bno.setCalibData(c_data);*/
   
   delay(1000);
@@ -72,7 +72,7 @@ void loop()
   byte buffer[22];
   bno.getCalibData(buffer);
   /* Prints the actual line to paste into your sketch (see setup() above) */
-  Serial.print("const byte c_data[22] = {");
+  Serial.print("byte c_data[22] = {");
   for (int i = 0; i < 22; i++)
   {
     Serial.print(buffer[i]); 
