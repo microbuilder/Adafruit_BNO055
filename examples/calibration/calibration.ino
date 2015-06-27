@@ -5,8 +5,10 @@
 *   -Run this sketch
 *   -To calibrate the Gyroscope, just let the sensor sit for a couple of seconds until GYR Calibration shows 1
 *   -To calibrate the Magnetometer, move your sensor in random figure 8 patterns until MAG Calibration shows 1
-*   -If you want to calibrate the acceleration sensor, move the sensor to 6 stable positions slowly, 3 of those should be in the XY/XZ/YZ plane
-*   -Once you are happy with the readings you get, copy the c_data = .... line from serial.console to the setup() of your sketch and write it to the sensor with "bno.setCalibData(c_data);"
+*   -If you want to calibrate the acceleration sensor, move the sensor to 6 stable positions slowly, 3 of those 
+*    should be in the XY/XZ/YZ plane
+*   -Once you are happy with the readings you get, copy the c_data = .... line from serial.console to the setup()
+*    of your sketch and write it to the sensor with "bno.setCalibData(c_data);"
 ********************************************************************************************************************************************************************************************/
 
 #include <Adafruit_Sensor.h>
@@ -22,14 +24,15 @@ void setup()
   Serial.println("Orientation Sensor Calibration"); Serial.println("");
 
   /* Initialise the sensor */
-  if (!bno.begin(bno.OPERATION_MODE_NDOF)) //if you want to calibrate using another mode, set it here. OPERATION_MODE_COMPASS for a precise tilt compensated compass (Section 3.3.2 / 3.3.3)
+  if (!bno.begin(bno.OPERATION_MODE_NDOF)) //if you want to calibrate using another mode, set it here. (Section 3.3.2 / 3.3.3)
   {
     /* There was a problem detecting the BNO055 ... check your connections */
     Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
     while (1);
   }
   
-  /* You will need the next two commented lines in your own sketch, _immediatly_ after bno.begin() to use a predefined calibration
+  /* You will need the next two commented lines in your own sketch, _immediatly_ after bno.begin() to use a
+    predefined calibration
   const byte c_data[22] = {0, 0, 0, 0, 0, 0, 172, 250, 112, 255, 52, 253, 0, 0, 253, 255, 255, 255, 232, 3, 240, 2}; //replace this line with the serial output of this sketch
   bno.setCalibData(c_data);*/
   
