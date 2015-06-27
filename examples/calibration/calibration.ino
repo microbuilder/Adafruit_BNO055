@@ -72,7 +72,7 @@ void loop()
   byte buffer[22];
   bno.getCalibData(buffer);
   /* Prints the actual line to paste into your sketch (see setup() above) */
-  Serial.print("byte c_data[22] = {");
+  Serial.print("const byte c_data[22] = {");
   for (int i = 0; i < 22; i++)
   {
     Serial.print(buffer[i]); 
